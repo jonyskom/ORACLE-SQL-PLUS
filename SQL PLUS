@@ -1,0 +1,225 @@
+# SQL - NIVEL BASICO
+
+- ***Author:*** *Mayumy Carrasco Huaccha*
+- ***Twitter:*** *[@MayumyCH](https://twitter.com/MayumyCH)*
+- ***Linkedin:*** *[@Mayumy Carrasco Huaccha](https://www.linkedin.com/in/heydy-mayumy-carrasco-huaccha/)*
+
+## **BASE DE DATOS**
+
+- CREAR BASE DE DATOS
+
+    ```sql
+    CREATE DATABASE BD_NAME
+    GO
+    ```
+
+- ELIMINAR BASE DE DATOS
+
+    ```sql
+    DROP DATABASE BD_NAME
+    GO
+    ```
+
+- Informar la BD a utilizar
+
+    ```sql
+    USE BD_NAME
+    GO
+    ```
+
+## **TABLA**
+
+- CREAR TABLA
+
+    ```sql
+    CREATE TABLE PERSONA
+    (
+        DNI INT PRIMARY KEY,
+        NOMBRE VARCHAR(255),
+        APELLIDO VARCHAR(255),
+        ESTADO CHAR(6)
+    )
+    GO
+    ```
+
+- MODIFICAR TABLA
+    ```sql
+    -- Modicando una columna de la tabla
+    ALTER TABLE PERSONA ALTER COLUMN ESTADO CHAR(10)
+    ```
+    
+
+- ELIMINAR TABLA
+
+    ```sql
+    DROP TABLE PERSONA;
+    GO
+    ```
+
+- VISUALIZAR TABLA 
+    ```sql
+    SELECT * FROM PERSONA
+    ```
+
+## **DATOS TABLA**
+
+- INGRESAR DATOS -> TABLA
+    ```sql
+        INSERT INTO PERSONA VALUES(1,'Mayumy','CH','ACTIVO')
+        INSERT INTO PERSONA VALUES(2,'Heydy','CH','X ACTIVO')
+        INSERT INTO PERSONA VALUES(3,'Ines','Huaccha','NO ACTIVO')
+        INSERT INTO PERSONA VALUES(4,'Oscar','Ruiz','X ACTIVO')
+        INSERT INTO PERSONA VALUES(5,'Henry','Ruiz','X ACTIVO')
+    ```
+
+- ACTUALIZAR DATOS -> TABLA
+    ```sql
+        UPDATE PERSONA SET ESTADO = 'N ACTIVO' WHERE DNI = 1
+    ```
+
+
+- ELIMINAR DATOS -> TABLA
+    ```sql
+    ----  El ID NO se REINICIA
+    DELETE FROM PERSONA WHERE NOMBRE = 'Heydy'
+    DELETE FROM PERSONA 
+
+    ----  El ID REINICIA
+    TRUNCATE TABLE TB_PRODUCTOS
+    ```
+
+- VISUALIZAR algunos DATOS -> TABLA
+    ```sql
+    SELECT TOP(2) * FROM PERSONA;
+    ```
+
+
+## **COMANDOS** muy **UTILES** para **manejo de datos**:
+<br>
+
+- VALORES DISTINTOS || **DISTINCT**
+    ```sql
+    SELECT DISTINCT ESTADO FROM PERSONA
+    ```
+
+- AGRUPANDO LOS DATOS || **GROUP BY**
+
+    ```sql
+    SELECT 
+        ESTADO, 
+        COUNT(*) as NroElemento
+    FROM PERSONA
+    GROUP BY ESTADO
+    ```
+
+- FILTRAR por VALOR de COLUMNA  || **WHERE**
+    ```sql
+    SELECT  *
+    FROM PERSONA
+    WHERE ESTADO = 'X ACTIVO' 
+    ```
+
+<br>
+
+## **ADICIONAL**
+
+- Para hacer COMENTARIOS en SQL-SERVER
+    ```sql 
+    -- Comentario de UNA sola FILA
+
+    /* 
+        Comentario de MAS de 2 FILAS 
+    */
+    ```
+
+- RENOMBRAR NOMBRE COLUMNAS en la tabla
+    ```sql
+    SELECT
+        DNI ID_PERSONA,
+        ESTADO 'ESTADO PERSONA',
+        NOMBRE [NOMBRE_PERSONA],
+        APELLIDO AS APELLIDO_PERSONA
+    FROM PERSONA
+    ```
+
+
+- ACTIVAR DIAGRAMA EN LA BASE DE DATOS
+    ```sql
+    ALTER AUTHORIZATION ON DATABASE::AdventureWorks2019 TO SA
+    ```
+
+- **OTRAS FORMAS** de **CREAR TABLA**
+
+    **1ra Forma** - ID incremental de 1 a 1
+
+    ```sql
+    -- Crear Tabla
+    CREATE TABLE TB_PRODUCTOS
+    (
+        ID_PRODUCTO INT IDENTITY(1,1) PRIMARY KEY,
+        NOMBRE VARCHAR(255)
+    )
+
+    -- Insertar datos
+    INSERT INTO TB_PRODUCTOS VALUES ('Papas')
+    INSERT INTO TB_PRODUCTOS VALUES ('Camotes')
+    INSERT INTO TB_PRODUCTOS VALUES ('Yucas')
+
+    -- Mostrar datos
+    SELECT * FROM TB_PRODUCTOS
+    ```
+
+    **2da Forma** - No especifica ID Incremental
+
+    ```sql
+    -- Crear Tabla
+    CREATE TABLE TB_PRODUCTOS_2
+    (
+        ID_PRODUCTO INT PRIMARY KEY, -- No especifica ID Incremental
+        NOMBRE VARCHAR(255)
+    )
+
+    -- Insertar datos
+    INSERT INTO TB_PRODUCTOS_2 VALUES (1,'Papas')
+    INSERT INTO TB_PRODUCTOS_2 VALUES (2,'Camotes')
+
+    -- Mostrar datos
+    SELECT * FROM TB_PRODUCTOS_2
+    ```
+
+    **3ra Forma** - ID incremental de 100 en 100
+
+    ```sql
+    -- Crear Tabla 
+    CREATE TABLE TB_PRODUCTOS_3
+    (
+    ID_PRODUCTO INT IDENTITY(1,100) PRIMARY KEY, -- ID INCREMENTAL DE 100 EN 100
+    NOMBRE VARCHAR(255)
+    )
+    -- Insertar datos
+    INSERT INTO TB_PRODUCTOS_3 VALUES ('Papas')
+    INSERT INTO TB_PRODUCTOS_3 VALUES ('Camotes')
+    INSERT INTO TB_PRODUCTOS_3 VALUES ('Choclos')
+
+    -- Mostrar datos
+    SELECT * FROM TB_PRODUCTOS_3
+    ```
+
+    **4ta Forma** - ID inicia en 100 incrementa de 1 a 1
+
+    ```sql
+    -- Crear Tabla
+    CREATE TABLE TB_PRODUCTOS_4
+    (
+    ID_PRODUCTO INT IDENTITY(100,1) PRIMARY KEY, -- ID INICIA EN 100 INCREMENTO 1
+    NOMBRE VARCHAR(255)
+    )
+
+    -- Insertar datos
+    INSERT INTO TB_PRODUCTOS_4 VALUES ('Papas')
+    INSERT INTO TB_PRODUCTOS_4 VALUES ('Camotes')
+    INSERT INTO TB_PRODUCTOS_4 VALUES ('Choclos')
+
+    -- Mostrar datos
+    SELECT * FROM TB_PRODUCTOS_4
+    ```
